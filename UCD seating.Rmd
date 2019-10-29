@@ -1,6 +1,6 @@
 ---
 title: "Student Sit In"
-author: "your name here"
+author: "Demian Romero"
 date: "10/26/2019"
 output: 
   html_document:
@@ -22,13 +22,13 @@ Students at UCD- is there a relation between where one sits and one's major?
 
 <!-- where is the data found?  Is this and experiment or observational study?  !-->
 
-Data from this study came from... 
+Data from this observational study came from 173 students from UC Davis. 
 
 
 
 ```{r include=FALSE, echo=FALSE}
 library(tigerstats)
-data(Ucdavis1)
+data(ucdavis1)
 
 ```
 
@@ -37,7 +37,7 @@ $H_A$: where one sits in class and one's major are related
 
 <!-- Get the data: !-->
 
-names of the data in the data frame
+names of the data in the data frame are seat and major.
 
 ```{r echo=FALSE}
 UCDdataframe = data.frame(seat=ucdavis1$Seat, major=ucdavis1$class, data=ucdavis1)
@@ -47,44 +47,45 @@ names(UCDdataframe)
 
 <!--  describe analysis methods here 
 what are the variable types, and indicate gaphical, numerical, and inferential methods appropriate
-for this question  !--> 
+for this question  !-->
+
+Both variables in this analysis are categorical; hence we use bar graphs and tables to summarize the data, and a chi-squared test for inference. 
 
 
 ## Data summary
 
 **Graphical summary**
-put the graphic description of the data here
 
 ```{r}
-
+barchartGC(~seat+major, data=UCDdataframe, main='Seat preference vs. Major')
 ```
 
-Explain what the graph shows
-
+The bar graph shows most students like to sit in the middle, with a higher percentage of students from Non-liberal arts majors preferring the middle.
 
 **Numerical summary**
-put numerical summary here
+
 
 ```{r}
-
+tab1= xtabs(formula = ~seat+major, data=UCDdataframe,)
+colPerc(tab1)
 ```
 
-Explain what the numeric summary says
+The numeric summary says that both liberal arts and non-liberal arts majors prefer the middle.
 
 ## Inferential Results
-put the inferential test for the the null hypothesis here
+
 
 ```{r}
-
+chisqtestGC(tab1)
 ```
 
-what is the p-value?
+The p-value is 0.2173. 
 
 ## Results and conclusions
 
 <!-- explain-- is there evidence that certain majors tend to sit in particular areas of the class?  Can the results of this test be generalized to all majors in all universities? !-->
 
-explain the result, can the result be generalized?
+Since the p-value is greater than .05 we fail to reject the null hypothesis and conclude we do not have the evidence to support a connect between between where one sits and one's major. This test cannot be generalized to all majors in all universities because it is not a random sample.
 
 <!--
 push results to your github account, turn in the URL
